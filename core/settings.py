@@ -57,6 +57,7 @@ ALLOWED_HOSTS = tuple(env.list("ALLOWED_HOSTS"))
 # Application definition
 
 INSTALLED_APPS = [
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -65,6 +66,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party
     "corsheaders",
+    "rest_framework_swagger",
+    "rest_framework",
+    "drf_yasg",
+    
+    #custom
+    "account",
 ]
 
 MIDDLEWARE = [
@@ -98,7 +105,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
-
+AUTH_USER_MODEL = "account.CustomUser"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -139,7 +146,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' 
+}
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
